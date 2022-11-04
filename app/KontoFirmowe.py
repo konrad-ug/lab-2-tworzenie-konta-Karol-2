@@ -5,6 +5,8 @@ class KontoFirmowe(Konto):
     def __init__(self, nazwa, nip):
         self.nazwa = nazwa
         self.saldo = 0
+        self.historia = []
+        self.oplata_za_ekspres = 5
         self.SprawdzanieNIP(nip)
 
     def SprawdzanieNIP(self, NIP):
