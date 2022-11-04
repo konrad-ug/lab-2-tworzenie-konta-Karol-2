@@ -36,3 +36,4 @@ class Konto:
 
         if self.saldo - kwota - oplata >= -oplata:
             self.saldo -= kwota + oplata
+# TODO: przypisz oplata do konta
