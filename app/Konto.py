@@ -4,6 +4,8 @@ class Konto:
         self.nazwisko = nazwisko
         self.pesel = None
         self.saldo = 0
+        self.oplata_za_ekspres = 1
+        self.historia = []
 
         self.sprawdz_pesel(pesel)
         self.sprawdz_kod_rabatowy(kod_rabatowy)
@@ -23,17 +25,14 @@ class Konto:
     def zaksieguj_przelew_wychodzacy(self, kwota):
         if self.saldo >= kwota:
             self.saldo -= kwota
+            self.historia.append(-kwota)
 
     def zaksieguj_przelew_przychodzacy(self, kwota):
         self.saldo += kwota
+        self.historia.append(kwota)
 
     def przelew_express_wychodzacy(self, kwota):
-        try:
-            self.nazwa
-            oplata = 5  # firma
-        except:
-            oplata = 1  # klient
-
-        if self.saldo - kwota - oplata >= -oplata:
-            self.saldo -= kwota + oplata
-# TODO: przypisz oplata do konta
+        if self.saldo - kwota - self.oplata_za_ekspres >= -self.oplata_za_ekspres:
+            self.saldo -= kwota + self.oplata_za_ekspres
+            self.historia.append(-kwota)
+            self.historia.append(-self.oplata_za_ekspres)

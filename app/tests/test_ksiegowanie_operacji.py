@@ -62,7 +62,7 @@ class TestKsiegowaniePrzelewow(unittest.TestCase):
         konto = Konto(self.imie, self.nazwisko, self.pesel)
         konto.saldo = 500
         konto.przelew_express_wychodzacy(500)
-        self.assertEqual(konto.saldo, 500-500-1, "Zła wartość dla przelewu ekspresowego, klient")
+        self.assertEqual(konto.saldo, 500 - 500 - 1, "Zła wartość dla przelewu ekspresowego, klient")
 
     def test_przelew_ekspresowy_firma_na_minusie(self):
         konto = KontoFirmowe(self.nazwa, self.nip)
