@@ -14,3 +14,9 @@ class KontoFirmowe(Konto):
             self.nip = NIP
         else:
             self.nip = "Niepoprawny NIP!"
+
+    def zaciagnij_kredyt(self, kwota):
+        if -1775 in self.historia and self.saldo >= kwota * 2:
+            self.zaksieguj_przelew_przychodzacy(kwota)
+            return True
+        return False

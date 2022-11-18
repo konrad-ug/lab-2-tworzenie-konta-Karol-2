@@ -36,3 +36,16 @@ class Konto:
             self.saldo -= kwota + self.oplata_za_ekspres
             self.historia.append(-kwota)
             self.historia.append(-self.oplata_za_ekspres)
+
+    def zaciagnij_kredyt(self, kwota):
+        ostatnie3 = self.historia[-3:]
+        ostatnie5 = self.historia[-5:]
+
+        if len(self.historia) >=5 and ostatnie3[0]>0 and ostatnie3[1]>0 and ostatnie5[2]>0: # a
+            if sum(ostatnie5) > kwota: # b
+                self.zaksieguj_przelew_przychodzacy(kwota)
+                return True
+            else:
+                return False
+        else:
+            return False
