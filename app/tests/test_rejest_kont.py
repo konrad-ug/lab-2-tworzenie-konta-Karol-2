@@ -33,6 +33,7 @@ class TestRejestrKont(unittest.TestCase):
         self.assertEqual(RejestrKont.wyszukaj_konto(szukany_pesel), None,"znaleziono błędny pesel")
 
 
+
     @classmethod
     def tearDownClass(cls):
         RejestrKont.konta = []

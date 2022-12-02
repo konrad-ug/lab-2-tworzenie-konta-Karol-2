@@ -1,5 +1,3 @@
-
-
 class RejestrKont:
     konta = []
 
