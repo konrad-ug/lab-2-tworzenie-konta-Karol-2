@@ -14,5 +14,10 @@ class RejestrKont:
                 return None
 
     @classmethod
+    def usun_konto(cls,pesel):
+        konto = cls.wyszukaj_konto(pesel)
+        cls.konta.remove(konto)
+
+    @classmethod
     def ile_kont(cls):
         return len(cls.konta)

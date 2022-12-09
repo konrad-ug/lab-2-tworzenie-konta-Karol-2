@@ -9,6 +9,7 @@ class TestObslugaKonta(unittest.TestCase):
         "pesel": "01292909876"
     }
 
+
     # export FLASK_APP=app/api.py
     # python -m flask run
     # odpalanie testu
@@ -29,6 +30,12 @@ class TestObslugaKonta(unittest.TestCase):
         self.assertEqual(resp_body["saldo"], 0)
 
     def test_3_zmiana_danych(self):
-        get_resp = requests.get(self.url + f"/konta/update/{self.body['pesel']}")
+        get_resp = requests.get(self.url + f"/konta/aktualizuj/{self.body['pesel']}")
         self.assertEqual(get_resp.status_code, 200)
+
+
+    def test_4_usuwanie_konta(self):
+        get_resp = requests.get(self.url + f"/konta/usun/{self.body['pesel']}")
+        self.assertEqual(get_resp.status_code, 200)
+
 

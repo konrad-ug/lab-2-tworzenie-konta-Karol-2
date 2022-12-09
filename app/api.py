@@ -27,7 +27,7 @@ def wyszukaj_konto_z_peselem(pesel):
     return jsonify(imie=konto.imie, nazwisko=konto.nazwisko, pesel=konto.pesel, saldo=konto.saldo), 200
 
 
-@app.route("/konta/update/<pesel>", methods=['PUT'])
+@app.route("/konta/aktualizuj/<pesel>", methods=['PUT'])
 def aktualizuj_konto(pesel):
     dane=request.json()
     print(f"Request o update konto z peselem: {pesel}")
@@ -45,11 +45,11 @@ def aktualizuj_konto(pesel):
     return jsonify("Update udany!"),200
 
 
-@app.route("/konta/konto/<pesel>", methods=['DELETE'])
+@app.route("/konta/usun/<pesel>", methods=['DELETE'])
 def usun_konto(pesel):
     print(f"Usuwanie konta z peselem: {pesel}")
-    konto = RejestrKont.wyszukaj_konto(pesel)
-    print("usuwam konto z danymi" + konto)
-    RejestrKont.konta.remove(konto)
+    RejestrKont.usun_konto(pesel)
+
+    return jsonify("konto usuniete!"), 200
 
 # flask --app app/api.py --debug run
