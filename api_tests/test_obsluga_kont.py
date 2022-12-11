@@ -9,11 +9,11 @@ class TestObslugaKonta(unittest.TestCase):
         "pesel": "01292909876"
     }
 
-
-    # export FLASK_APP=app/api.py
-    # python -m flask run
-    # odpalanie testu
-    # python3 -m unittest api_tests/test_obsluga_kont.py
+    body_zmienione = {
+        "imie": "Jarosław",
+        "nazwisko": "Polskezbaw",
+        "pesel": "82123052241"
+    }
 
     url = "http://localhost:5000"
 
@@ -30,12 +30,18 @@ class TestObslugaKonta(unittest.TestCase):
         self.assertEqual(resp_body["saldo"], 0)
 
     def test_3_zmiana_danych(self):
-        get_resp = requests.get(self.url + f"/konta/aktualizuj/{self.body['pesel']}")
-        self.assertEqual(get_resp.status_code, 200)
-
+        put_resp = requests.put(self.url + f"/konta/aktualizuj/{self.body['pesel']}", json=self.body_zmienione)
+        self.assertEqual(put_resp.status_code, 200)
+        resp_body = put_resp.json()
+        self.assertEqual(resp_body["imie"], self.body_zmienione["imie"])
+        self.assertEqual(resp_body["nazwisko"], self.body_zmienione["nazwisko"])
+        self.assertEqual(resp_body["pesel"], self.body_zmienione["pesel"])
 
     def test_4_usuwanie_konta(self):
-        get_resp = requests.get(self.url + f"/konta/usun/{self.body['pesel']}")
-        self.assertEqual(get_resp.status_code, 200)
+        delete_resp = requests.delete(self.url + f"/konta/usun/{self.body_zmienione['pesel']}")
+        self.assertEqual(delete_resp.status_code, 200)
 
-
+    # export FLASK_APP=app/api.py
+    # python -m flask run
+    # odpalanie testu
+    # python3 -m unittest api_tests/test_obsluga_kont.py

@@ -29,27 +29,22 @@ def wyszukaj_konto_z_peselem(pesel):
 
 @app.route("/konta/aktualizuj/<pesel>", methods=['PUT'])
 def aktualizuj_konto(pesel):
-    dane=request.json()
-    print(f"Request o update konto z peselem: {pesel}")
+    dane = request.get_json()
+    print(f"Request o update konta z danymi: {dane}")
     konto = RejestrKont.wyszukaj_konto(pesel)
-    print("stare dane" + konto)
-    if "imie" in dane:
-        konto.imie = dane["imie"]
-    if "nazwisko" in dane:
-        konto.nazwisko = dane["nazwisko"]
-    if "pesel" in dane:
-        konto.pesel = dane["pesel"]
-    if "saldo" in dane:
-        konto.saldo = dane["saldo"]
-
-    return jsonify("Update udany!"),200
+    print("konto znalezione")
+    konto.imie = dane["imie"] if "imie" in dane else konto.imie
+    konto.nazwisko = dane["nazwisko"] if "nazwisko" in dane else konto.nazwisko
+    konto.pesel = dane["pesel"] if "pesel" in dane else konto.pesel
+    konto.saldo = dane["saldo"] if "saldo" in dane else konto.saldo
+    return jsonify(imie=konto.imie, nazwisko=konto.nazwisko, pesel=konto.pesel, saldo=konto.saldo), 200
 
 
 @app.route("/konta/usun/<pesel>", methods=['DELETE'])
 def usun_konto(pesel):
-    print(f"Usuwanie konta z peselem: {pesel}")
-    RejestrKont.usun_konto(pesel)
-
-    return jsonify("konto usuniete!"), 200
+    if RejestrKont.usun_konto(pesel):
+        return jsonify("Konto zostalo usuniete"), 200
+    else:
+        return jsonify("Nie ma takiego konta"), 404
 
 # flask --app app/api.py --debug run
