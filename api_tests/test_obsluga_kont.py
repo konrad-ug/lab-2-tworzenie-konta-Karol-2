@@ -11,7 +11,7 @@ class TestObslugaKonta(unittest.TestCase):
 
     body_zmienione = {
         "imie": "Jarosław",
-        "nazwisko": "Polskezbaw",
+        "nazwisko": "Kaczka",
         "pesel": "82123052241"
     }
 
@@ -40,6 +40,10 @@ class TestObslugaKonta(unittest.TestCase):
     def test_4_usuwanie_konta(self):
         delete_resp = requests.delete(self.url + f"/konta/usun/{self.body_zmienione['pesel']}")
         self.assertEqual(delete_resp.status_code, 200)
+
+    def test_5_usuwanie_konta_nieistniejacego(self):
+        delete_resp = requests.delete(self.url + f"/konta/usun/{self.body_zmienione['pesel']}")
+        self.assertEqual(delete_resp.status_code, 404)
 
     # export FLASK_APP=app/api.py
     # python -m flask run
