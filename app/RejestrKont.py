@@ -10,8 +10,7 @@ class RejestrKont:
         for account in cls.konta:
             if account.pesel == pesel:
                 return account
-            else:
-                return None
+        return None
 
     @classmethod
     def usun_konto(cls, pesel):
